@@ -1,5 +1,11 @@
 FROM python:3.8-alpine
 
+RUN adduser -D brcode
+
+WORKDIR /home/brcode
+
+COPY requirements.txt requirements.txt
+
 RUN apk --no-cache add \
     build-base \
     python3 \
@@ -21,14 +27,9 @@ RUN apk --no-cache add \
     tcl-dev \
     tiff-dev \
     tk-dev \
-    zlib-dev
-
-RUN adduser -D brcode
-
-WORKDIR /home/brcode
-
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+    zlib-dev \
+    zbar-dev && \
+    pip install -r requirements.txt
 
 COPY api.py ./
 
